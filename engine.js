@@ -9,6 +9,21 @@ window.requestAnimFrame = (function(){
           };
 })();
 
+// Viewport
+var screenHeight = window.innerHeight;
+var screenWidth = window.innerWidth;
+
+// Initial position
+var x = window.innerWidth / 2;
+var y = window.innerHeight / 2;
+var speed = 20;
+
+// Set hero position
+var hero = document.getElementById("hero");
+hero.style.top = y;
+hero.style.left = x;
+
+// Controlls
 var keyUP = false;
 var keyDOWN = false;
 var keyLEFT = false;
@@ -21,11 +36,8 @@ var motion = {
   right: false
 }
 
-// Viewport
-var screenHeight = window.innerHeight;
-var screenWidth = window.innerWidth;
 
-document.addEventListener('keydown', function(e) {  
+document.addEventListener('keydown', function(e) {
   console.log(e.keyCode);
   switch(e.keyCode){
     case 38: // 87 - w key
@@ -38,7 +50,6 @@ document.addEventListener('keydown', function(e) {
       keyLEFT = true;
       break;
     case 39: // 68 - d key
-      keyRIGHT = true;
       break;
     default:
   }
@@ -61,95 +72,34 @@ document.addEventListener('keyup', function(e) {
       break;
     default:
   }
-  
+
 });
 
-/*
-// Initial position ball
-var x = window.innerWidth / 2;
-var y = window.innerHeight / 2;
-var speed = 20;
-
-// Set ball position
-var ball = document.getElementById("ball");
-//ball.style.top = y;
-//ball.style.left = x;
-
-
-function edgeDetect(){
-  
-    if(y <= 50){
-      y = 50;
-    }
-    
-    if(y >= (screenHeight-50)){
-      y = screenHeight-50;
-    }
-  
-    if(x <= 50){
-      x = 50;
-    }
-  
-    if(x >= (screenWidth-50)){
-      x = screenWidth-50;
-    }
-}
-
-
-function autoBounce(){
- 
-    // Ceiling
-    if(y <= 50 ){
-      motion.up = false;
-      motion.down = true;
-    }
-    
-    // Floor
-    if(y >= (screenHeight-50)){
-      motion.up = true;
-      motion.down = false;
-    }
-  
-    // Left wall
-    if(x <= 50){
-      motion.right = true;
-      motion.left = false;
-    }
-  
-    // Right wall
-    if(x >= (screenWidth-50)){
-      motion.left = true;
-      motion.right = false;
-    }
-}
 
 function render(){
-  
+
   if(keyUP || motion.up){
     y -= speed;
   }
-  
+
   if(keyDOWN || motion.down){
     y += speed;
   }
-  
+
   if(keyLEFT || motion.left){
     x -= speed;
   }
-  
+
   if(keyRIGHT || motion.right){
     x += speed;
   }
-  
-  autoBounce();
-  edgeDetect();
-  
-  ball.style.top = y;
-  ball.style.left = x;
+
+  hero.style.top = y;
+  hero.style.left = x;
 }
-*/
+
 
 (function animloop(){
   requestAnimFrame(animloop);
-  // render();
+  render();
 })();

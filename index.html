@@ -5,15 +5,18 @@
     <title>Run From the Fire</title>
   </head>
   <body>
-    <div id="gameboard">
-      <div id="startscreen-container">
-        <h1>Put Out The Fire</h1>
-        <h2>Press Space to Start</h2>
-        <div id="instructions">
-          <div><b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump</div>
-        </div>
+    <div id="startscreen-container">
+      <audio id="bgm">
+        <source src="assets/ct-bikerace.mp3" type="audio/mp3">
+      </audio>
+      <h1>Put Out The Fire</h1>
+      <h2>Press Space to Start</h2>
+      <div id="instructions">
+        <div><b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump</div>
       </div>
-      <div id="floor"></div>
+    </div>
+    <div id="gameboard">
+      <div id="level"></div>
       <div id="backdrop"></div>
       <div id="doomfire"></div>
       <div id="hero"></div>
@@ -21,9 +24,9 @@
       <div id="box-spikey"></div>
       <div id="item"></div>
       <div id="enemy"></div>
-
     </div>
-    <script src="script/engine.js" ></script>
     <script src="script/util.js" ></script>
+    <script src="script/hero.js" ></script>
+    <script src="script/engine.js" ></script>
   </body>
 </html>

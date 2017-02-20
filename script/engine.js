@@ -1,61 +1,73 @@
-console.log("Game Engine");
+console.log("Activate Engine");
 
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
           window.webkitRequestAnimationFrame ||
           window.mozRequestAnimationFrame    ||
           function( callback ){
-            window.setTimeout(callback, 1000 / 60);
+          window.setTimeout(callback, 1000 / 60);
           };
 })();
 
-var keyUP = false;
-var keyDOWN = false;
-var keyLEFT = false;
-var keyRIGHT = false;
-
-var motion = {
-  up:false,
-  down:true,
-  left: false,
-  right: true
-}
-
-// Initial position ball
-var x = window.innerWidth / 2;
-var y = window.innerHeight / 2;
-var speed = 20;
-
-// Set ball position
-var ball = document.getElementById("ball");
-ball.style.top = y;
-ball.style.left = x;
+var Player = new Hero();
 
 // Viewport
 var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
 
-document.addEventListener('keydown', function(e) {  
-  
+
+//--------------------------------------------------
+// BG Music
+
+
+
+//--------------------------------------------------
+// Start Positioning
+
+// Initial position
+var x = Player.position.x / 2;
+var y = Player.position.y / 2;
+var speed = Player.speed;
+
+// Set hero position
+var hero = document.getElementById("hero");
+hero.style.left = x;
+hero.style.top = y;
+
+
+
+
+//--------------------------------------------------
+// Controls
+var keyUP = false;
+var keyDOWN = false;
+var keyLEFT = false;
+var keyRIGHT = false;
+
+document.addEventListener('keydown', function(e) {
+  console.log(e.keyCode);
+  // Controll Key Setting
+
+
   switch(e.keyCode){
-    case 38:
+    case 38: // 87 - w key
       keyUP = true;
       break;
-    case 40:
+    case 40: // 83 - s key
       keyDOWN = true;
       break;
-    case 37:
+    case 37: // 65 - a key
       keyLEFT = true;
       break;
-    case 39:
+    case 39: // 68 - d key
       keyRIGHT = true;
       break;
     default:
   }
 });
 
-document.addEventListener('keyup', function(e) {  
-  
+document.addEventListener('keyup', function(e) {
+
   switch(e.keyCode){
     case 38:
       keyUP = false;
@@ -71,81 +83,32 @@ document.addEventListener('keyup', function(e) {
       break;
     default:
   }
-  
+
 });
 
 
-function edgeDetect(){
-  
-    if(y <= 50){
-      y = 50;
-    }
-    
-    if(y >= (screenHeight-50)){
-      y = screenHeight-50;
-    }
-  
-    if(x <= 50){
-      x = 50;
-    }
-  
-    if(x >= (screenWidth-50)){
-      x = screenWidth-50;
-    }
-}
-
-
-function autoBounce(){
- 
-    // Ceiling
-    if(y <= 50 ){
-      motion.up = false;
-      motion.down = true;
-    }
-    
-    // Floor
-    if(y >= (screenHeight-50)){
-      motion.up = true;
-      motion.down = false;
-    }
-  
-    // Left wall
-    if(x <= 50){
-      motion.right = true;
-      motion.left = false;
-    }
-  
-    // Right wall
-    if(x >= (screenWidth-50)){
-      motion.left = true;
-      motion.right = false;
-    }
-}
-
 function render(){
-  
-  if(keyUP || motion.up){
+
+  if(keyUP){
     y -= speed;
   }
-  
-  if(keyDOWN || motion.down){
+
+  if(keyDOWN){
     y += speed;
   }
-  
-  if(keyLEFT || motion.left){
+
+  if(keyLEFT){
     x -= speed;
   }
-  
-  if(keyRIGHT || motion.right){
+
+  if(keyRIGHT){
     x += speed;
   }
-  
-  autoBounce();
-  edgeDetect();
-  
-  ball.style.top = y;
-  ball.style.left = x;
+
+  hero.style.top = y;
+  hero.style.left = x;
 }
+
 
 (function animloop(){
   requestAnimFrame(animloop);
