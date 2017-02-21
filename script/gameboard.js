@@ -16,17 +16,19 @@ var JUMP = METER*5 //some jump distance
 
 var GameBoard = function(){
 
-    /*
-     *  Game global variables
-     */
+//-----------------------------------------------
+// Global Variables
     var element = document.getElementById("gameboard");             // Gameboard element
-    var gravity = 5;                                               // Gravity in px;
+    var gravity = 5; // Gravity in px;
+    var isGameRunning = false;
+    var scale = 50;
 
-    /*
-     *  Game assets
-     */
-    var level = [];
+
+//-----------------------------------------------
+// Game Assets
     var hero = new Hero(gravity);
+
+    var level = [];
     var movement = {
         "up": false,
         "down": false,
@@ -35,9 +37,9 @@ var GameBoard = function(){
         "jump": false
     };
 
-    /*
-     *  Event listeners
-     */
+//-----------------------------------------------
+// Event Listeners
+
     document.addEventListener('keydown', function(e) {
 
         switch(e.keyCode){
@@ -54,9 +56,19 @@ var GameBoard = function(){
                 movement.right = true;
                 break;
 
-            case 32:
-                movement.jump = true;
+            case 32: //space
+                if (isGameRunning === true) {
+                    movement.jump = true;
+                } else {
+                    startGame();
+                    isGameRunning = true;
+                }
                 break;
+
+            case 77: //m key
+                console.log('toggle mute');
+                musicToggle();
+
             default:
         }
     });
@@ -84,27 +96,43 @@ var GameBoard = function(){
         }
     });
 
+//-----------------------------------------------
+// BG Music
 
-    /*
-     *  Render
-     */
+    function musicToggle() {
+        // body...
+        var music = document.getElementById('bgm-bikerace');
+        return music.paused ? music.play() : music.pause();
+    }
+
+
+//-----------------------------------------------
+// Render
+
     function render(){
-
         hero.render(movement);
 
     }
 
-    /*
-     *  Game loop
-     */
+//-----------------------------------------------
+// Game Loop
     function animloop(){
         window.requestAnimFrame(animloop);
         render();
     };
-    animloop();
 
+//-----------------------------------------------
+// Start Game
+    function startGame(){
+        //create level
+        var simpleLevel = new Level(simpleLevelPlan);
+        simpleLevel.drawBackground();
+        //hide start screen
+        document.getElementsByClassName('startscreen-container')[0].style.zIndex = -100;
+        // run rendering
+        animloop();
+    }
 }
-
 
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       ||
@@ -115,10 +143,7 @@ window.requestAnimFrame = (function(){
         };
 })();
 
+
+
 var gameBoard = new GameBoard();
-
-
-
-
-
 

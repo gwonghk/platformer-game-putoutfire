@@ -5,8 +5,8 @@ var Hero = function(gravity){
     console.log("Hero gravity", gravity)
 
     this.health = 100;                          // Player health
-    this.height = 100;
-    this.width = 50;
+    this.height = scale + 'px';
+    this.width = scale + 'px';
 
     this.gravityInPixel = gravity
 
@@ -61,14 +61,12 @@ var Hero = function(gravity){
         if(currentJumpHeight < maxJumpHeight && isJumping && jumpingUp){
             currentJumpHeight += jumpSpeed;
             this.position.y -= jumpSpeed;
-            console.log(currentJumpHeight);
         }
 
 
         if(currentJumpHeight >= maxJumpHeight && isJumping){
             currentJumpHeight -= jumpSpeed;
             this.position.y += jumpSpeed;
-            console.log(currentJumpHeight);
             jumpingUp = false;
         }
 
@@ -83,19 +81,16 @@ var Hero = function(gravity){
                 this.position.y += jumpSpeed;
             }
 
-            console.log(currentJumpHeight);
         }
 
         if(currentJumpHeight <= 0){
             isJumping = false;
             jumpingUp = true;
-            console.log(currentJumpHeight);
         }
 
         if(movement.jump && !isJumping){
             this.position.y -= jumpSpeed;
             currentJumpHeight += jumpSpeed;
-            console.log(currentJumpHeight);
         }
 
     }

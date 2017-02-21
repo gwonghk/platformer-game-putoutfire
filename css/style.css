@@ -1,3 +1,5 @@
+/*//-----------------------------------------------
+// Import Fonts*/
 @font-face {
     font-family: "Silkscreen";
     src: url("fonts/slkscr.ttf");
@@ -19,6 +21,10 @@
     font-weight: bold;
 }
 
+
+/*//-----------------------------------------------
+// Start Screen*/
+
 html, body {
     height: 100%;
     width: 100%;
@@ -27,21 +33,56 @@ html, body {
     overflow: hidden;
 }
 
-#startscreen-container{
-    font-family: Silkscreen;
+.startscreen-container{
+    height: 100%;
+    width: 100%;
     display: block;
-    float: left;
+    position: absolute;
+    background-color: black;
+    text-align: center;
+    z-index: 3;
 }
+
+#intro-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    margin-top: -100px;
+    width: 600px;
+    margin-left: -300px;
+    font-family: Silkscreen;
+    color: white;
+}
+
+/*//-----------------------------------------------
+// Level Appearance*/
 
 #level{
     height: 40px;
     width: 100%;
-    position: fixed;
-    bottom: 0%;
-    background-color: brown;
+    position: absolute;
+    background-color: beige;
+
+}
+
+.level{
+    position: absolute;
+    table-layout: fixed;
+    border-spacing: 0;
+}
+
+.level td {
+    padding: 0;
+    border: black solid 1px;
+}
+
+.wall{
+    background-color: rgba(179, 71, 0, 0.4);
 }
 
 #hero {
+    border: 2px black;
     height: 100px;
     width: 100px;
     position: absolute;
@@ -50,10 +91,13 @@ html, body {
     margin-left: -50px;
     margin-top: -50px;
     background-color: orange;
+
 }
 
 #backdrop {
     background-color: lightblue;
+    position: absolute;
     height: 100%;
     width: 100%;
+    z-index: -1;
 }

@@ -16,7 +16,7 @@ var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
 
 
-//--------------------------------------------------
+//-----------------------------------------------
 // BG Music
 
 
