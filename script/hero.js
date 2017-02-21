@@ -1,19 +1,16 @@
 //// Hero /////////
 var Hero = function(gravity){
 
-
     console.log("Hero gravity", gravity)
 
     this.health = 100;                          // Player health
+    this.gravityInPixel = gravity;
+
+
     this.height = scale + 'px';
     this.width = scale + 'px';
-
-    this.gravityInPixel = gravity
-
-    this.position = {
-        'x': window.innerWidth / 2,
-        'y': window.innerHeight / 2
-    }
+    this.y = window.innerHeight / 2;
+    this.x = window.innerWidth / 2;
 
     var speed = 20;                             // Speed
     var currentSpeed = 0;
@@ -31,13 +28,13 @@ var Hero = function(gravity){
 
 
     function addGravity(){
-        self.position.y += self.gravityInPixel;
+        self.y += self.gravityInPixel;
 
-        //console.log(self.position.y);
+        //console.log(self.y);
         var bottom = window.innerHeight - 90;
 
-        if(self.position.y > bottom){
-            self.position.y = bottom;
+        if(self.y > bottom){
+            self.y = bottom;
         }
     }
 
@@ -60,13 +57,13 @@ var Hero = function(gravity){
 
         if(currentJumpHeight < maxJumpHeight && isJumping && jumpingUp){
             currentJumpHeight += jumpSpeed;
-            this.position.y -= jumpSpeed;
+            this.y -= jumpSpeed;
         }
 
 
         if(currentJumpHeight >= maxJumpHeight && isJumping){
             currentJumpHeight -= jumpSpeed;
-            this.position.y += jumpSpeed;
+            this.y += jumpSpeed;
             jumpingUp = false;
         }
 
@@ -74,11 +71,11 @@ var Hero = function(gravity){
 
             if( currentJumpHeight <= speed){ // close to an object than the speed
                 currentJumpHeight = 0;
-               // this.position.y += currentJumpHeight;
+               // this.y += currentJumpHeight;
                // debugger;
             }else{
                 currentJumpHeight -= jumpSpeed;
-                this.position.y += jumpSpeed;
+                this.y += jumpSpeed;
             }
 
         }
@@ -89,7 +86,7 @@ var Hero = function(gravity){
         }
 
         if(movement.jump && !isJumping){
-            this.position.y -= jumpSpeed;
+            this.y -= jumpSpeed;
             currentJumpHeight += jumpSpeed;
         }
 
@@ -98,11 +95,11 @@ var Hero = function(gravity){
     this.run = function(movement){
 
         if(movement.left){
-            this.position.x -= speed;
+            this.x -= speed;
         }
 
         if(movement.right){
-            this.position.x += speed;
+            this.x += speed;
         }
 
 
@@ -116,8 +113,8 @@ var Hero = function(gravity){
         addGravity();
         this.jump(movement);
 
-        element.style.top = this.position.y;
-        element.style.left = this.position.x;
+        element.style.top = this.y;
+        element.style.left = this.x;
 
     }
 

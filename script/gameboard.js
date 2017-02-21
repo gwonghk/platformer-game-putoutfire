@@ -12,6 +12,7 @@ var JUMP = METER*5 //some jump distance
 */
 /////////// View Window ///////////////////////
 
+var scale = 50;
 
 
 var GameBoard = function(){
@@ -21,7 +22,6 @@ var GameBoard = function(){
     var element = document.getElementById("gameboard");             // Gameboard element
     var gravity = 5; // Gravity in px;
     var isGameRunning = false;
-    var scale = 50;
 
 
 //-----------------------------------------------

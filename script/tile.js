@@ -1,6 +1,9 @@
 //// Tile /////////
 var Tile = function(){
-
+    this.height: scale + 'px';
+    this.width: scale + 'px';
+	this.x: 
+	this.y:
     var position = {
         'x': 0,				// Tile position X
         'y': 0,				// Tile position Y
