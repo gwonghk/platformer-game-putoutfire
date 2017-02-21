@@ -22,6 +22,29 @@ var Level = function(plan){
 	this.grid = [];
 
 
+
+
+	function drawLevel(){
+
+		var level = [];
+
+		for(var i=simpleLevelPlan.length-1;i>=0;i--){
+			for(var j=0;j<simpleLevelPlan[i].length;i++){
+
+				if(simpleLevelPlan[i][j] == "x"){
+                    level[i][j] = new tile("", x, y)
+				}else{
+                    level[i][j] =  null;
+				}
+			}
+		}
+
+
+	}
+
+
+
+
 	// translate the inputted levelplan into a grid within level
 	for (var y = 0; y < this.height; y++) {
 		// look throug each row
@@ -58,12 +81,11 @@ var Level = function(plan){
 		level.appendChild(table);
 	};
 
+
+
 	this.render = function(){
 
 	}
 
-	for (var i = 0; i < this.height; i++) {
 
-
-	}
 }
