@@ -11,43 +11,36 @@ var Hero = function(gravity){
     this.gravityInPixel = gravity;
 
 
-
     var speed = 10;      // Speed
     var element = document.getElementById("hero");
     var self = this;
 
 //-----------------------------------------------
+// Movement Physics
+    this.maxdx = TILE*20; // max horizontal speed
+    this.maxdy = TILE*60; // max vertical speed
+    this.hjump = TILE * 1500;
+    this.hgravity = TILE*9.8*6;
+    this.falling = false;
+
+    this.accel = this.maxdx * 2;
+    this.friction = this.maxdx * 6;
+    this.dy = 0;
+    this.dx = 0;
+
+    var wasleft = this.dx < 0;
+    var wasright = this.dx > 0;
+
+//-----------------------------------------------
 // Collision Detection
-
-    // this.findFirstObjInXAxis = function(){
-    //     if (this.x-TILE || this.x+this.width+TILE ) {
-
-    //         if within a range
-    //             we look through all mapObjects
-    //                 and find one that has the same x
-
-    //         forEach(function(i){
-    //             this.x-TILE
-    //         });
-
-
-    //     } else {
-
-    //     }
-    // }
-
 
     this.checkCollision = function(){
         mapObjects.forEach(function(i){
 
             if (recCollide(hero, i)) {
-                movement.left = false;
-                movement.right = false;
-                movement.down = false;
-                movement.up = false;
-                console.log('bump');
+
+
             } else {
-          
 
             }
         });
