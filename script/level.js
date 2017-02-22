@@ -1,6 +1,5 @@
 var simpleLevelPlan = [
-	"xxxxx                       ",
-	"                            ",
+	"x xxx                       ",
 	"                            ",
 	"                            ",
 	"                            ",
@@ -12,80 +11,93 @@ var simpleLevelPlan = [
 	"                            ",
 	" xxxxxxxxxxxxxxxxxxxxxxxxx  ",
 	" xxxxxxxxxxxxxxxxxxxxxxxxx  ",
-	" xxxxxxxxxxxxxxxxxxxxxxxxx  "
+	" xxxxxxxxxxxxxxxxxxxxxxxxx  ",
+	"xxxxxxxxxxxxxxxxxxxxxxxxxx  ",
+	"xxxxxxxxxxxxxxxxxxxxxxxxxx  "
 ];
 
 var Level = function(plan){
 
 	this.height = plan.length //= how many rows are in the array
 	this.width = plan[0].length; //= how many columns in the array
-	this.grid = [];
 
 
+	this.makeObjects = function(){
+		var levelEl = document.getElementById('level')
 
+		for(var i=simpleLevelPlan.length-1;i>=0; i--){
 
-	function drawLevel(){
+			for(var j=0;j<simpleLevelPlan[i].length; j++){
 
-		var level = [];
-
-		for(var i=simpleLevelPlan.length-1;i>=0;i--){
-			for(var j=0;j<simpleLevelPlan[i].length;i++){
-
-				if(simpleLevelPlan[i][j] == "x"){
-                    level[i][j] = new tile("", x, y)
+				if((simpleLevelPlan[i][j] == 'x')){
+					var a = new Tile('wall', [j]*TILE, [i]*TILE);
+					mapObjects.push(a);
 				}else{
-                    level[i][j] =  null;
+
 				}
+
 			}
 		}
-
-
 	}
-
-
-
-
-	// translate the inputted levelplan into a grid within level
-	for (var y = 0; y < this.height; y++) {
-		// look throug each row
-		var row = plan[y];
-		var gridRow = [];
-		for (var x = 0; x < this.width; x++) {
-			// look through each column
-			var column = row.charAt(x);
-			var tileType = null;
-			if (column === 'x') {
-				tileType = 'wall'
-			} else {
-			}
-			gridRow.push(tileType);
-		}
-		this.grid.push(gridRow);
-	}
-
-	this.drawBackground =function (){
-		//create a table with class background
-		var level = document.getElementById("level");
-		var table = ltb("table", "level");
-		// assign table with width from the levelPlan * scale
-		table.style.width = this.width * scale + 'px';
-
-		this.grid.forEach(function(row){
-			var rowLtb = table.appendChild(ltb('tr'));
-			rowLtb.style.height = scale + 'px';
-			row.forEach(function(type){
-				rowLtb.appendChild(ltb('td', type));
-			});
-		});
-		//append gameboard to the level div
-		level.appendChild(table);
-	};
-
-
 
 	this.render = function(){
 
 	}
 
+	this.makeObjects();
+
 
 }
+
+	// this.grid = [];
+	// this.objectGrid = [];
+	// this.drawLevel = function(){
+	// // translate the inputted levelplan into a grid within level
+	// 	for (var y = 0; y < this.height; y++) {
+	// 		// look throug each row
+	// 		var row = plan[y];
+	// 		var gridRow = [];
+	// 		for (var x = 0; x < this.width; x++) {
+	// 			// look through each column
+	// 			var column = row.charAt(x);
+	// 			var tileType = null;
+	// 			if (column === 'x') {
+	// 				tileType = 'wall';
+	// 			} else {
+	// 			}
+	// 			gridRow.push(tileType);
+	// 		}
+	// 		this.grid.push(gridRow);
+	// 	}
+	// }
+
+	// this.drawBackground =function (){
+	// 	//create a table with class background
+	// 	var level = document.getElementById("level");
+	// 	var table = ltb("table", "table");
+	// 	// assign table with width from the levelPlan * TILE
+	// 	table.style.width = this.width * TILE + 'px';
+
+	// 	this.grid.forEach(function(row){
+	// 	// look through all items in 'grid' and add an element, and an object to it
+	// 		var rowLtb = table.appendChild(ltb('tr'));
+	// 		// create a table row, and append it ot the table
+	// 		rowLtb.style.height = TILE + 'px';
+	// 		//set height of each row
+	// 		row.forEach(function(type){
+	// 			var el = ltb('td', type)
+	// 			rowLtb.appendChild(el);
+	// 			// var elRec = el.getBoundingClientRect()
+	// 			// var elRecX = elRec.left
+	// 			// var elRecY = elRec.top
+	// 			// var tile = new Tile(type, elRecX, elRecY);
+	// 			// objectGrid.push(tile);
+
+	// 		});
+
+	// 	});
+	// 	//append gameboard to the level div
+	// 	level.appendChild(table);
+	// };
+	// this.drawLevel();
+	// this.drawBackground();

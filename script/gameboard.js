@@ -12,7 +12,10 @@ var JUMP = METER*5 //some jump distance
 */
 /////////// View Window ///////////////////////
 
-var scale = 50;
+// i dont know why i have to declare the hero twice but i do, or else i loose the object.
+var hero = new Hero(1);
+var TILE = 50;
+var mapObjects = [];
 
 
 var GameBoard = function(){
@@ -20,14 +23,12 @@ var GameBoard = function(){
 //-----------------------------------------------
 // Global Variables
     var element = document.getElementById("gameboard");             // Gameboard element
-    var gravity = 5; // Gravity in px;
     var isGameRunning = false;
+    var gravity = 5; // Gravity in px;
 
 
 //-----------------------------------------------
 // Game Assets
-    var hero = new Hero(gravity);
-
     var level = [];
     var movement = {
         "up": false,
@@ -62,6 +63,7 @@ var GameBoard = function(){
                 } else {
                     startGame();
                     isGameRunning = true;
+
                 }
                 break;
 
@@ -119,6 +121,7 @@ var GameBoard = function(){
     function animloop(){
         window.requestAnimFrame(animloop);
         render();
+
     };
 
 //-----------------------------------------------
@@ -126,7 +129,7 @@ var GameBoard = function(){
     function startGame(){
         //create level
         var simpleLevel = new Level(simpleLevelPlan);
-        simpleLevel.drawBackground();
+            hero = new Hero(gravity);
         //hide start screen
         document.getElementsByClassName('startscreen-container')[0].style.zIndex = -100;
         // run rendering

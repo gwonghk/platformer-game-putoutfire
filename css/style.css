@@ -59,26 +59,40 @@ html, body {
 // Level Appearance*/
 
 #level{
-    height: 40px;
+    height: 100%;
     width: 100%;
     position: absolute;
-    background-color: beige;
-
+/*    background-color: beige;
+*/
 }
 
-.level{
+#gameboard {
+    height: 100%;
+    width: 100%;
     position: absolute;
+}
+
+/*.table{
     table-layout: fixed;
     border-spacing: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    bottom: 0%;
+    left: 0%;
 }
 
-.level td {
+.table td {
     padding: 0;
     border: black solid 1px;
-}
+}*/
 
 .wall{
+    padding: 0;
+    border: black solid 1px;
     background-color: rgba(179, 71, 0, 0.4);
+    position: absolute;
+    overflow: auto;
 }
 
 #hero {
@@ -91,7 +105,7 @@ html, body {
     margin-left: -50px;
     margin-top: -50px;
     background-color: orange;
-
+    padding: 0;
 }
 
 #backdrop {

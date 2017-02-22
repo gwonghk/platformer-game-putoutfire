@@ -1,37 +1,72 @@
 //// Hero /////////
 var Hero = function(gravity){
 
-    console.log("Hero gravity", gravity)
-
-    this.health = 100;                          // Player health
-    this.gravityInPixel = gravity;
-
-
-    this.height = scale + 'px';
-    this.width = scale + 'px';
+    this.height = TILE;
+    this.width = TILE;
     this.y = window.innerHeight / 2;
     this.x = window.innerWidth / 2;
 
-    var speed = 20;                             // Speed
-    var currentSpeed = 0;
+
+    this.health = 100; // Player health
+    this.gravityInPixel = gravity;
+
+
+
+    var speed = 10;      // Speed
     var element = document.getElementById("hero");
     var self = this;
 
-    /*
-     * Jump variables
-     */
+//-----------------------------------------------
+// Collision Detection
+
+    // this.findFirstObjInXAxis = function(){
+    //     if (this.x-TILE || this.x+this.width+TILE ) {
+
+    //         if within a range
+    //             we look through all mapObjects
+    //                 and find one that has the same x
+
+    //         forEach(function(i){
+    //             this.x-TILE
+    //         });
+
+
+    //     } else {
+
+    //     }
+    // }
+
+
+    this.checkCollision = function(){
+        mapObjects.forEach(function(i){
+
+            if (recCollide(hero, i)) {
+                movement.left = false;
+                movement.right = false;
+                movement.down = false;
+                movement.up = false;
+                console.log('bump');
+            } else {
+          
+
+            }
+        });
+    }
+
+
+//-----------------------------------------------
+// Jumping Variables
     var jumpSpeed = 20;
     var maxJumpHeight = 300;
     var currentJumpHeight = 0;
     var isJumping = false;
     var jumpingUp = true;
 
-
     function addGravity(){
         self.y += self.gravityInPixel;
 
         //console.log(self.y);
-        var bottom = window.innerHeight - 90;
+        var bottom = window.innerHeight;
 
         if(self.y > bottom){
             self.y = bottom;
@@ -72,7 +107,6 @@ var Hero = function(gravity){
             if( currentJumpHeight <= speed){ // close to an object than the speed
                 currentJumpHeight = 0;
                // this.y += currentJumpHeight;
-               // debugger;
             }else{
                 currentJumpHeight -= jumpSpeed;
                 this.y += jumpSpeed;
@@ -89,21 +123,22 @@ var Hero = function(gravity){
             this.y -= jumpSpeed;
             currentJumpHeight += jumpSpeed;
         }
-
     }
 
     this.run = function(movement){
 
         if(movement.left){
-            this.x -= speed;
+            self.x -= speed;
         }
 
         if(movement.right){
-            this.x += speed;
+            self.x += speed;
         }
 
 
     }
+
+
 
     // Hero render
     this.render = function(movement){
@@ -112,6 +147,8 @@ var Hero = function(gravity){
         this.run(movement);
         addGravity();
         this.jump(movement);
+
+        this.checkCollision();
 
         element.style.top = this.y;
         element.style.left = this.x;
