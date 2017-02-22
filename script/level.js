@@ -6,14 +6,14 @@ var simpleLevelPlan = [
 	"                            ",
 	"            xxxx            ",
 	"                            ",
-	"     xxxx        xxxxx      ",
-	"                            ",
-	"                            ",
-	" xxxxxxxxxxxxxxxxxxxxxxxxx  ",
-	" xxxxxxxxxxxxxxxxxxxxxxxxx  ",
-	" xxxxxxxxxxxxxxxxxxxxxxxxx  ",
-	"xxxxxxxxxxxxxxxxxxxxxxxxxx  ",
-	"xxxxxxxxxxxxxxxxxxxxxxxxxx  "
+	"     xxxx      xxxxxxx      ",
+	"             xxx            ",
+	"           xxx              ",
+	" xxxxxx  xxxxxxxxxxxxx  xx  ",
+	" xxxxx  xxxxxxxxxxxx   xxx  ",
+	" xxx   xxxxxxxxxxx   xxxxx  ",
+	"xxxx          x    xxxxxxx  ",
+	"xxxxxxxx         xxxxxxxxx  "
 ];
 
 var Level = function(plan){

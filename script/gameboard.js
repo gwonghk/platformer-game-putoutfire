@@ -24,7 +24,7 @@ var GameBoard = function(){
 // Global Variables
     var element = document.getElementById("gameboard");             // Gameboard element
     var isGameRunning = false;
-    var gravity = 5; // Gravity in px;
+    var gravity = 10; // Gravity in px;
 
 
 //-----------------------------------------------

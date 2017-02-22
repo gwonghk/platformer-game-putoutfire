@@ -11,7 +11,7 @@ var Hero = function(gravity){
     this.gravityInPixel = gravity;
 
 
-    var speed = 10;      // Speed
+    var speed = 15;      // Speed
     var element = document.getElementById("hero");
     var self = this;
 
@@ -19,6 +19,7 @@ var Hero = function(gravity){
 // Movement Physics
     this.maxdx = TILE*20; // max horizontal speed
     this.maxdy = TILE*60; // max vertical speed
+
     this.hjump = TILE * 1500;
     this.hgravity = TILE*9.8*6;
     this.falling = false;
@@ -34,17 +35,21 @@ var Hero = function(gravity){
 //-----------------------------------------------
 // Collision Detection
 
-    this.checkCollision = function(){
+    function checkCollision(){
         mapObjects.forEach(function(i){
 
             if (recCollide(hero, i)) {
-
-
-            } else {
-
+                self.y = i.y;
+                console.log(self.y+' hero x position');
+                console.log(i.y+" object x position");
+                console.log('block movement');
             }
+            // if (recCollideX(hero, i)) {
+            //     self.x = i.x;
+            // }
         });
     }
+
 
 
 //-----------------------------------------------
@@ -122,6 +127,10 @@ var Hero = function(gravity){
 
         if(movement.left){
             self.x -= speed;
+        //     self.dx -= self.accel
+        //     self.x -= self.dx;
+        // } else if (wasleft){
+        //     self.dx += self.friction;
         }
 
         if(movement.right){
@@ -138,10 +147,9 @@ var Hero = function(gravity){
 
 
         this.run(movement);
+        checkCollision();
         addGravity();
         this.jump(movement);
-
-        this.checkCollision();
 
         element.style.top = this.y;
         element.style.left = this.x;
