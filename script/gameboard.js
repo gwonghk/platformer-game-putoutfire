@@ -1,6 +1,6 @@
 // i dont know why i have to declare the hero twice but i do, or else i loose the object.
 var hero = new Hero(1);
-var doomfire = new DoomFire();
+//var doomfire = new DoomFire();
 var TILE = 50;
 var mapObjects = [];
 
@@ -11,7 +11,6 @@ var GameBoard = function(){
 // Global Variables
     var element = document.getElementById("gameboard");             // Gameboard element
     var isGameRunning = false;
-    var gravity = 10; // Gravity in px;
 
 
 //-----------------------------------------------
@@ -22,7 +21,10 @@ var GameBoard = function(){
         "down": false,
         "left": false,
         "right": false,
-        "jump": false
+        "jump": false,
+        "gravity": 10,
+        "speedLeft": 10,
+        "speedRight": 10
     };
 
 //-----------------------------------------------
@@ -86,6 +88,118 @@ var GameBoard = function(){
     });
 
 //-----------------------------------------------
+// Collision Detection
+
+    function collisionDetection(){
+
+        movement.gravity = 10;
+        movement.speedLeft = 10;
+        movement.speedRight = 10;
+        if( hero.element.getClientRects().length == 0 ){
+            return;
+        }
+
+        var heroRect = hero.element.getClientRects()[0];
+
+        for(var i =0; i<mapObjects.length;i++){
+            var tile = mapObjects[i];
+
+            if( tile.element.getClientRects().length == 0 ){
+                continue;
+            }
+            var tileRect = tile.element.getClientRects()[0];
+
+
+
+
+            if(heroRect.bottom >= tileRect.top &&
+               heroRect.left <= tileRect.left + tileRect.width &&
+               heroRect.left + heroRect.width >= tileRect.left &&
+               heroRect.top <= tileRect.bottom
+            )
+            {
+                tile.element.style.background = "red";
+                console.log("collision bottom");
+                movement.gravity = 0;
+            }
+
+
+            if( heroRect.left <= tileRect.left + tileRect.width &&
+                heroRect.left + heroRect.width > tileRect.left &&
+                heroRect.bottom > tileRect.top &&
+                heroRect.top <= tileRect.bottom
+            )
+            {
+                tile.element.style.background = "blue";
+                console.log("collision Left");
+                movement.speedLeft = 0;
+            }
+
+
+            if( heroRect.left + heroRect.width > tileRect.left &&
+                heroRect.left < tileRect.left + tileRect.width &&
+                heroRect.bottom > tileRect.top &&
+                heroRect.top <= tileRect.bottom
+            )
+            {
+                tile.element.style.background = "purple";
+                console.log("collision right");
+                movement.speedRight = 0;
+            }
+
+
+            if(heroRect.top <= tileRect.bottom &&
+                heroRect.left < tileRect.left + tileRect.width &&
+                heroRect.left + heroRect.width > tileRect.left &&
+                heroRect.bottom > tileRect.top
+            )
+            {
+                debugger;
+                tile.element.style.background = "yellow";
+                console.log("collision top");
+                hero.y = tileRect.bottom
+            }
+
+
+            /*
+
+            if (heroRect.left <= tileRect.left + tileRect.width &&
+                heroRect.left + heroRect.width >= tileRect.left &&
+                heroRect.top <= tileRect.top + tileRect.height &&
+                heroRect.height + heroRect.top >= tileRect.top){
+
+                tile.element.style.background = "red";
+
+                // Bottom
+                if(heroRect.top+heroRect.height >= tileRect.top){
+                    hero.y = tileRect.top - heroRect.height;
+                    console.log("Bottom");
+                    movement.gravity = 0;
+                }
+
+                // Left
+                //console.log("Left", heroRect.left, tileRect.left, tileRect.width)
+                if(heroRect.left < tileRect.left + tileRect.width){
+                    movement.speedLeft = 0;
+                    console.log("Left");
+                }
+                   // Right
+                if(heroRect.left+heroRect.width >= tileRect.left){
+                    hero.x = tileRect.left - heroRect.width -1;
+                    console.log("Right");
+                }
+
+                // Top
+                if(heroRect.top <= tileRect.top + tileRect.height){
+                    hero.x = tileRect.top + tileRect.height + 1;
+                    console.log("Top");
+                }
+                */
+            }
+        };
+
+
+//-----------------------------------------------
 // BG Music
 
     function musicToggle() {
@@ -98,32 +212,11 @@ var GameBoard = function(){
 //-----------------------
 // Render
     function render(){
+        collisionDetection();
+        hero.addGravity(movement);
         hero.render(movement);
-        doomfire.render();
+        //doomfire.render();
     }
-
-  //   var fps = 60,
-  //   step = 1/fps,
-  //   counter = 0,
-  //   dt = 0,
-  //   now,
-  //   last = timestamp();
-  // // fpsmeter = new FPSMeter({ decimals: 0, graph: true, theme: 'dark', left: '5px' });
-
-  //   (function frame() {
-  //           // fpsmeter.tickStart();
-  //           now = timestamp(); //the time at the start of this loop
-  //           dt = dt + Math.min(1, (now - last) / 1000); //the delta between now and last
-  //           while(dt > step) {
-  //             dt = dt - step;
-  //             // update(step);
-  //           }
-  //           render(counter, dt);
-  //           last = now; // the time at the start of the previous loop
-  //           counter++;
-  //           requestAnimationFrame(frame);
-  //   })();
-
 
 //-----------------------------------------------
 // Game Loop
@@ -138,8 +231,8 @@ var GameBoard = function(){
     function startGame(){
         //create level
         var simpleLevel = new Level(simpleLevelPlan);
-            hero = new Hero(gravity);
-            doomfire = new DoomFire();
+            hero = new Hero(movement.gravity);
+            //doomfire = new DoomFire();
         //hide start screen
         document.getElementsByClassName('startscreen-container')[0].style.zIndex = -100;
         // run rendering

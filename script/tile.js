@@ -7,19 +7,20 @@ var Tile = function(type, left, top){
 	this.height = TILE;
 	this.width = TILE;
     this.type = type;
-    var element = null;
+    this.element = null;
+    var self = this;
 
     function createElement(){
 
-		var el = ltb('div', 'tile')
-		el.classList.add(type);
-		el.style.top = top;
-		el.style.left = left-50; // dont know how to fix this bug
-		el.style.width = TILE+'px';
-		el.style.height = TILE+'px';
+        self.element = ltb('div', 'tile')
+        self.element.classList.add(type);
+        self.element.style.top = top;
+        self.element.style.left = left-50; // dont know how to fix this bug
+        self.element.style.width = TILE+'px';
+        self.element.style.height = TILE+'px';
 
 		var levelEl = document.getElementById('level')
-        levelEl.appendChild(el);
+        levelEl.appendChild(self.element);
 
     }
 

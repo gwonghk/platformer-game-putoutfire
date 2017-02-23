@@ -3,16 +3,14 @@ var Hero = function(gravity){
 
     this.height = TILE;
     this.width = TILE;
-    this.y = window.innerHeight / 2;
-    this.x = window.innerWidth / 2;
+    this.y = 0;
+    this.x = 350;
 
 
     this.health = 100; // Player health
-    this.gravityInPixel = gravity;
 
-
-    var speed = 15;      // Speed
-    var element = document.getElementById("hero");
+    var speed = 10;      // Speed
+    this.element = document.getElementById("hero");
     var self = this;
 
 //-----------------------------------------------
@@ -31,6 +29,9 @@ var Hero = function(gravity){
 // Collision Detection
 
     function checkCollision(){
+
+        return;
+
         mapObjects.forEach(function(i){
 
             if (recCollide(hero, i) && (i.type != 'bucket')){
@@ -54,7 +55,7 @@ var Hero = function(gravity){
     // self.returnCollisionObj = function() {
     //     mapObjects.forEach(function(i){
 
-    //         if (recCollideObj(hero, i)) {
+    //         if (recCollideObj(hero, i))  {
     //             var a = recCollideObj(hero, i);
     //             self.y = a.y
     //         }
@@ -67,8 +68,9 @@ var Hero = function(gravity){
 //-----------------------------------------------
 // Jumping Variables
 
-    function addGravity(){
-        self.y += self.gravityInPixel;
+
+    self.addGravity = function(movement){
+        self.y += movement.gravity;
 
         //console.log(self.y);
         var bottom = window.innerHeight;
@@ -86,7 +88,7 @@ var Hero = function(gravity){
 
     self.jump = function(movement){
         if(!movement.jump && !isJumping){   // if space is not press and the hero is not currently jumping
-            checkCollision()
+            //checkCollision()
             return
         }
 
@@ -112,7 +114,7 @@ var Hero = function(gravity){
             }else{
                 currentJumpHeight -= jumpSpeed;
                 this.y += jumpSpeed;
-                checkCollision();
+              //  checkCollision();
             }
 
         }
@@ -131,6 +133,7 @@ var Hero = function(gravity){
 
     self.run = function(movement){
 
+        /*
         if(movement.left && checkCollision()){
             self.x -= 0;
         } else if (movement.left && !checkCollision()){
@@ -141,6 +144,15 @@ var Hero = function(gravity){
             self.x -= 0;
         } else if (movement.right && !checkCollision()){
             self.x += speed;
+        }*/
+
+
+        if(movement.left){
+            self.x -= movement.speedLeft;
+        }
+
+        if(movement.right){
+            self.x += movement.speedRight;
         }
     }
 
@@ -148,13 +160,11 @@ var Hero = function(gravity){
     // Hero render
     self.render = function(movement){
 
-
         self.run(movement);
-        addGravity();
-        this.jump(movement);
-        element.style.top = this.y;
-        element.style.left = this.x;
 
+        this.jump(movement);
+        self.element.style.top = this.y;
+        self.element.style.left = this.x;
     }
 
 }
