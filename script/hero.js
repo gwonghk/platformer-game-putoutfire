@@ -17,20 +17,15 @@ var Hero = function(gravity){
 
 //-----------------------------------------------
 // Movement Physics
-    this.maxdx = TILE*20; // max horizontal speed
-    this.maxdy = TILE*60; // max vertical speed
+    self.falling = false;
 
-    this.hjump = TILE * 1500;
-    this.hgravity = TILE*9.8*6;
-    this.falling = false;
-
-    this.accel = this.maxdx * 2;
-    this.friction = this.maxdx * 6;
-    this.dy = 0;
-    this.dx = 0;
-
-    var wasleft = this.dx < 0;
-    var wasright = this.dx > 0;
+    self.friction = 1/6;
+    self.accel = 1/3;
+    self.dx = 0;
+    self.dy = 0;
+    self.ddx = 0;
+    self.maxdx = 15;
+    self.maxdy = 60;
 
 //-----------------------------------------------
 // Collision Detection
@@ -40,13 +35,7 @@ var Hero = function(gravity){
 
             if (recCollide(hero, i)) {
                 self.y = i.y;
-                console.log(self.y+' hero x position');
-                console.log(i.y+" object x position");
-                console.log('block movement');
             }
-            // if (recCollideX(hero, i)) {
-            //     self.x = i.x;
-            // }
         });
     }
 
@@ -77,22 +66,18 @@ var Hero = function(gravity){
     }
 
     this.jump = function(movement){
-
-
-
         if(!movement.jump && !isJumping){   // if space is not press and the hero is not currently jumping
+            checkCollision()
             return
         }
 
         isJumping = true;
 
-
-
         if(currentJumpHeight < maxJumpHeight && isJumping && jumpingUp){
+
             currentJumpHeight += jumpSpeed;
             this.y -= jumpSpeed;
         }
-
 
         if(currentJumpHeight >= maxJumpHeight && isJumping){
             currentJumpHeight -= jumpSpeed;
@@ -108,6 +93,7 @@ var Hero = function(gravity){
             }else{
                 currentJumpHeight -= jumpSpeed;
                 this.y += jumpSpeed;
+                checkCollision();
             }
 
         }
@@ -123,23 +109,21 @@ var Hero = function(gravity){
         }
     }
 
-    this.run = function(movement){
 
-        if(movement.left){
+    this.run = function(movement, dt){
+
+        if(movement.left && checkCollision()){
+            self.x -= 0;
+        } else if (movement.left && !checkCollision()){
             self.x -= speed;
-        //     self.dx -= self.accel
-        //     self.x -= self.dx;
-        // } else if (wasleft){
-        //     self.dx += self.friction;
         }
 
-        if(movement.right){
+        if(movement.right && checkCollision()){
+            self.x -= 0;
+        } else if (movement.right && !checkCollision()){
             self.x += speed;
         }
-
-
     }
-
 
 
     // Hero render
@@ -149,11 +133,45 @@ var Hero = function(gravity){
         this.run(movement);
         checkCollision();
         addGravity();
-        this.jump(movement);
-
+        this.jump(movement); 
         element.style.top = this.y;
         element.style.left = this.x;
 
     }
 
 }
+
+
+    // self.run = function(movement){
+
+
+    //     if(movement.left){
+    //         self.ddx -= self.accel;
+    //     }
+
+    //     if(movement.right){
+    //         self.ddx += self.accel;
+    //     }
+    // }
+
+    // function update() {
+    //     var wasleft = self.dx < 0;
+    //     var wasright = self.dx > 0;
+
+    //     if (wasleft) {
+    //         self.ddx += self.friction;
+    //     }
+    //     if (wasright){
+    //         self.ddx -= self.friction;
+    //     }
+
+    //     self.x -= self.dx;
+    //     self.y -= self.dy;
+
+
+    //     self.dx = bound(self.dx + self.ddx, -self.maxdx, self.maxdx);
+    //     self.dy = bound(self.dy + self.ddy, -self.maxdy, self.maxdy);
+
+    //     element.style.top = self.y;
+    //     element.style.left = self.x;
+    // }

@@ -35,7 +35,7 @@ html, body {
 
 .startscreen-container{
     height: 100%;
-    width: 100%;f
+    width: 100%;
     display: block;
     position: absolute;
     background-color: black;
@@ -90,13 +90,12 @@ html, body {
 .wall{
     padding: 0;
     border: black solid 1px;
-    background-color: rgba(179, 71, 0, 0.4);
+    background-color: rgba(179, 71, 0, 0.9);
     position: absolute;
     overflow: auto;
 }
 
 #hero {
-    border: 2px black;
     height: 50px;
     width: 50px;
     position: absolute;
@@ -106,6 +105,8 @@ html, body {
     margin-top: -50px;
     background-color: orange;
     padding: 0;
+/*    background: url(pig.png);*/
+    background-size: 100%;
 }
 
 #backdrop {
@@ -114,4 +115,15 @@ html, body {
     height: 100%;
     width: 100%;
     z-index: -1;
+    background: url(background.gif);
+}
+
+#doomfire {
+    height: 100%;
+    width: 1000%;
+    position: absolute;
+    z-index: 1;
+    background: url(../assets/candel-fire/fire.png);
+    left: -950%;
+    bottom: 0%;
 }

@@ -30,10 +30,18 @@ function recCollide(r0, r1) {
 
 function recCollideX(r0, r1) {
 	// checks collision if x AND y of two objects overlap
-	return rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width);
+	return rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height) && rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width);
 }
 
-function recCollideY(r0, r1) {
-	// checks collision if x AND y of two objects overlap
-	return rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height);
+
+function bound(x, min, max) {
+	return Math.max(min, Math.min(max, x));
+}
+
+function obstacleAt(obj){
+	var xStart = Math.floor(obj.x);
+	var xEnd = Math.ceil(obj.x + obj.width);
+	var yStart = Math.floor(obj.y);
+	var yEnd = Math.ceil(obj.y + obj.height);
+
 }
