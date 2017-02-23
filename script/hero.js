@@ -110,68 +110,55 @@ var Hero = function(gravity){
     }
 
 
-    this.run = function(movement, dt){
+   self.run = function(movement){
 
-        if(movement.left && checkCollision()){
-            self.x -= 0;
-        } else if (movement.left && !checkCollision()){
-            self.x -= speed;
+        if(movement.left){
+            self.ddx -= self.accel;
         }
 
-        if(movement.right && checkCollision()){
-            self.x -= 0;
-        } else if (movement.right && !checkCollision()){
-            self.x += speed;
+        if(movement.right){
+            self.ddx += self.accel;
         }
     }
 
 
     // Hero render
-    this.render = function(movement){
+    this.render = function(movement, dt){
 
 
         this.run(movement);
+        update(dt);
         checkCollision();
         addGravity();
-        this.jump(movement); 
-        element.style.top = this.y;
-        element.style.left = this.x;
+        this.jump(movement);
 
     }
 
+    function update(dt) {
+        var wasleft = self.dx < 0;
+        var wasright = self.dx > 0;
+
+        if (wasleft) {
+            self.ddx += self.friction;
+        }
+        if (wasright){
+            self.ddx -= self.friction;
+        }
+
+        self.x -= self.dx;
+        self.y -= self.dy;
+
+        self.dx = bound(self.dx + (dt*self.ddx), -self.maxdx, self.maxdx);
+        self.dy = bound(self.dy + (dt*self.ddy), -self.maxdy, self.maxdy);
+
+        if ((wasleft  && (self.dx > 0)) ||
+            (wasright && (self.dx < 0))) {
+
+            self.dx = 0; // fix at zero to prevent friction from causing wobble
+            console.log('tried to stop wobble')
+        }
+
+        element.style.top = self.y + (dt * self.dy);
+        element.style.left = self.x + (dt *self.dx);
+    }
 }
-
-
-    // self.run = function(movement){
-
-
-    //     if(movement.left){
-    //         self.ddx -= self.accel;
-    //     }
-
-    //     if(movement.right){
-    //         self.ddx += self.accel;
-    //     }
-    // }
-
-    // function update() {
-    //     var wasleft = self.dx < 0;
-    //     var wasright = self.dx > 0;
-
-    //     if (wasleft) {
-    //         self.ddx += self.friction;
-    //     }
-    //     if (wasright){
-    //         self.ddx -= self.friction;
-    //     }
-
-    //     self.x -= self.dx;
-    //     self.y -= self.dy;
-
-
-    //     self.dx = bound(self.dx + self.ddx, -self.maxdx, self.maxdx);
-    //     self.dy = bound(self.dy + self.ddy, -self.maxdy, self.maxdy);
-
-    //     element.style.top = self.y;
-    //     element.style.left = self.x;
-    // }
