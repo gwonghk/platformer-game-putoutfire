@@ -28,20 +28,27 @@ function recCollide(r0, r1) {
 	return rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width) && rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height);
 }
 
-function recCollideX(r0, r1) {
-	// checks collision if x AND y of two objects overlap
-	return rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height) && rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width);
-}
+// function recCollideObj(r0, r1) {
+// 	// checks collision if x AND y of two objects overlap
+// 	if (rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height) && rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width)){
+// 		debugger;
+// 		return r1
+// 	}
+// }
 
-
+/*
 function bound(x, min, max) {
+	//this is used to find the middle number, given 3 numbers
 	return Math.max(min, Math.min(max, x));
 }
 
 function obstacleAt(obj){
+	// half digested function, tried to see what was needed to calculate the area surrounding hero. 
+	// this could then be used to look for collision
 	var xStart = Math.floor(obj.x);
 	var xEnd = Math.ceil(obj.x + obj.width);
 	var yStart = Math.floor(obj.y);
 	var yEnd = Math.ceil(obj.y + obj.height);
 
 }
+*/

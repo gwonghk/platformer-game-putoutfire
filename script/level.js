@@ -1,15 +1,15 @@
 var simpleLevelPlan = [
-	"x xxx                       ",
 	"                            ",
 	"                            ",
 	"                            ",
 	"                            ",
-	"            xxxx            ",
 	"                            ",
-	"     xxxx      xxxxxxx      ",
-	"             xxx            ",
-	"           xxx              ",
-	" xxxxxx  xxxxxxxxxxxxx  xx  ",
+	"            nnnn            ",
+	"     !                      ",
+	"     nnnn      nnnnnnn      ",
+	"             bbb            ",
+	"           bbb              ",
+	" nnnnnn  nnnnnnnnnnnnn  nn  ",
 	" xxxxx  xxxxxxxxxxxx   xxx  ",
 	" xxx   xxxxxxxxxxx   xxxxx  ",
 	"xxxx          x    xxxxxxx  ",
@@ -32,10 +32,18 @@ var Level = function(plan){
 				if((simpleLevelPlan[i][j] == 'x')){
 					var a = new Tile('wall', [j]*TILE, [i]*TILE);
 					mapObjects.push(a);
-				}else{
 
+				}else if ((simpleLevelPlan[i][j] == 'n')){
+					var b = new Tile('groundtop', [j]*TILE, [i]*TILE);
+					mapObjects.push(b);
+
+				}else if ((simpleLevelPlan[i][j] == 'b')){
+					var c = new Tile('box', [j]*TILE, [i]*TILE);
+					mapObjects.push(c);
+				}else if ((simpleLevelPlan[i][j] == '!')){
+					var d = new Tile('bucket', [j]*TILE, [i]*TILE);
+					mapObjects.push(d);
 				}
-
 			}
 		}
 	}

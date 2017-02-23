@@ -1,17 +1,3 @@
-///////////// Gameboard ////////////////////
-/*
-var TILE = ?? // some distance in pixels
-var METER = TILE
-var FLOOR = { tilewidth , tileheight };
-
-//governing movement
-var GRAVITY = METER * 9.8 // can * a multiplyer
-var MAXDX = METER * 20 // max horz speed in tiles/sec
-var MAXDY = METER*20
-var JUMP = METER*5 //some jump distance
-*/
-/////////// View Window ///////////////////////
-
 // i dont know why i have to declare the hero twice but i do, or else i loose the object.
 var hero = new Hero(1);
 var doomfire = new DoomFire();
@@ -104,38 +90,39 @@ var GameBoard = function(){
 
     function musicToggle() {
         // body...
+        doomfire.inmotion.right = true;
         var music = document.getElementById('bgm-bikerace');
         return music.paused ? music.play() : music.pause();
     }
 
-
 //-----------------------
 // Render
-    var fps = 60,
-    step = 1/fps,
-    counter = 0,
-    dt = 0,
-    now,
-    last = timestamp();
-  // fpsmeter = new FPSMeter({ decimals: 0, graph: true, theme: 'dark', left: '5px' });
-
     function render(){
-        hero.render(movement, dt);
+        hero.render(movement);
         doomfire.render();
     }
-    (function frame() {
-            // fpsmeter.tickStart();
-            now = timestamp(); //the time at the start of this loop
-            dt = dt + Math.min(1, (now - last) / 1000); //the delta between now and last
-            while(dt > step) {
-              dt = dt - step;
-              // update(step);
-            }
-            render(counter, dt);
-            last = now; // the time at the start of the previous loop
-            counter++;
-            requestAnimationFrame(frame);
-    })();
+
+  //   var fps = 60,
+  //   step = 1/fps,
+  //   counter = 0,
+  //   dt = 0,
+  //   now,
+  //   last = timestamp();
+  // // fpsmeter = new FPSMeter({ decimals: 0, graph: true, theme: 'dark', left: '5px' });
+
+  //   (function frame() {
+  //           // fpsmeter.tickStart();
+  //           now = timestamp(); //the time at the start of this loop
+  //           dt = dt + Math.min(1, (now - last) / 1000); //the delta between now and last
+  //           while(dt > step) {
+  //             dt = dt - step;
+  //             // update(step);
+  //           }
+  //           render(counter, dt);
+  //           last = now; // the time at the start of the previous loop
+  //           counter++;
+  //           requestAnimationFrame(frame);
+  //   })();
 
 
 //-----------------------------------------------
@@ -162,9 +149,6 @@ var GameBoard = function(){
 
 //-----------------------------------------------
 // Game Loop
-
-
-
 
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       ||

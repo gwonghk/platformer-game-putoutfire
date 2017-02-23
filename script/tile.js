@@ -6,7 +6,7 @@ var Tile = function(type, left, top){
 	this.y = top;
 	this.height = TILE;
 	this.width = TILE;
-    var type = type;
+    this.type = type;
     var element = null;
 
     function createElement(){

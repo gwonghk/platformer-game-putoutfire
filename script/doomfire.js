@@ -1,38 +1,41 @@
 //// Doom Fire /////////
-var DoomFire = function(){
-	this.x = -17000;
-	this.y = 0;
-	this.damage = 0;
+var DoomFire = function(spawntime){
+	var self = this;
+
+	self.x = -window.innerWidth;
+	self.y = 0;
+	self.damage = 0;
 	var speed = 10;
-	var el = document.getElementById('doomfire')
+	var el = document.getElementById('doomfire');
 
-	var self = this
 
-	var inmotion = {
+	self.inmotion = {
 		right: false,
-		left: false
 	}
 
 	function edgeDetect() {
 		// body...
 		if(self.x >= window.innerWidth){
+			self.inmotion.right = false;
 			console.log('you died! =(!');
-			inmotion.right = false;
 		}
 	}
 
 	function move() {
 
-		if (inmotion.right) {
-			self.x += speed;
-		} else if (!inmotion.right){
-			self.x += 0;
-		}
+		(self.inmotion.right) ? self.x += speed : self.x -= speed;
 		el.style.left = self.x + 'px';
 
 	}
 
-	this.render = function() {
+	window.setTimeout(spawn(), 1000)
+
+	function spawn(){
+		self.inmotion.right = true;
+	}
+
+
+	self.render = function() {
 		move();
 		edgeDetect();
 	}
