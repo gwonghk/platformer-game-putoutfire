@@ -3,6 +3,7 @@ var hero = new Hero(1);
 //var doomfire = new DoomFire();
 var TILE = 50;
 var mapObjects = [];
+var winCondition = [];
 
 
 var GameBoard = function(){
@@ -49,6 +50,7 @@ var GameBoard = function(){
             case 32: //space
                 if (isGameRunning === true) {
                     movement.jump = true;
+                    document.getElementById('jump').play();
                 } else {
                     startGame();
                     isGameRunning = true;
@@ -92,6 +94,15 @@ var GameBoard = function(){
 
     function collisionDetection(){
 
+
+        if (recCollide(hero, doomfire)) {
+            winGame();
+        }
+
+        if (recCollide(hero, winCondition[0])) {
+            winGame();
+        }
+
         movement.gravity = 10;
         movement.speedLeft = 10;
         movement.speedRight = 10;
@@ -118,12 +129,12 @@ var GameBoard = function(){
                    heroRect.top <= tileRect.bottom
                 )
                 {
-                    tile.element.style.background = "red";
-                    console.log("collision bottom");
+                    // tile.element.style.background = "red";
+                    // console.log("collision bottom");
                     movement.gravity = 0;
                 }
             }
-            if (movement.gravity < 0) {
+            if (hero.isJumping = false) {
                 //top chk
                 if(heroRect.top <= tileRect.bottom &&
                     heroRect.left <= tileRect.left + tileRect.width &&
@@ -131,9 +142,9 @@ var GameBoard = function(){
                     heroRect.bottom > tileRect.top
                 )
                 {
-                    tile.element.style.background = "yellow";
-                    console.log("collision top");
-                    hero.y = tileRect.bottom
+                    // tile.element.style.background = "yellow";
+                    // console.log("collision top");
+                    hero.y = tileRect.bottom;
                 }
 
             }
@@ -149,8 +160,8 @@ var GameBoard = function(){
                     heroRect.top <= tileRect.bottom
                 )
                 {
-                    tile.element.style.background = "blue";
-                    console.log("collision Left");
+                    // tile.element.style.background = "blue";
+                    // console.log("collision Left");
                     movement.speedLeft = 0;
                 }
             }
@@ -166,15 +177,11 @@ var GameBoard = function(){
                     heroRect.top <= tileRect.bottom
                 )
                 {
-                    tile.element.style.background = "purple";
-                    console.log("collision right");
+                    // tile.element.style.background = "purple";
+                    // console.log("collision right");
                     movement.speedRight = 0;
                 }
             }
-
-
-            
-
 
             /*
 
@@ -217,6 +224,8 @@ var GameBoard = function(){
 //-----------------------------------------------
 // BG Music
 
+
+
     function musicToggle() {
         // body...
         var music = document.getElementById('bgm-bikerace');
@@ -247,13 +256,38 @@ var GameBoard = function(){
         var simpleLevel = new Level(simpleLevelPlan);
         hero = new Hero(movement.gravity);
         doomfire = new DoomFire();
-        // window.setTimeout((doomfire.inmotion.right = true), 60000)
+        window.setTimeout((doomfire.inmotion.right = true), 600000)
 
         //hide start screen
         document.getElementsByClassName('startscreen-container')[0].style.zIndex = -100;
         // run rendering
         animloop();
     }
+
+
+    function looseGame() {
+        document.getElementById('intro-text').innerHTML = 'You were engulfed in flames, =('
+        //hide start screen
+        document.getElementById('intro-text').style.color = '#F88017'
+        document.getElementsByClassName('startscreen-container')[0].style.backgroundColor = 'black';
+        //hide start screen
+        document.getElementsByClassName('startscreen-container')[0].style.zIndex = 3;
+        // run rendering
+        doomfire.inmotion.right = false;
+        hero = new Hero();
+    }
+
+    function winGame() {
+        document.getElementById('intro-text').innerHTML = 'Win! You put out the fire! =D'
+        document.getElementById('intro-text').style.color = '#6CBB3C'
+        document.getElementsByClassName('startscreen-container')[0].style.backgroundColor = 'black';
+        //hide start screen
+        document.getElementsByClassName('startscreen-container')[0].style.zIndex = 3;
+        // run rendering
+        doomfire.inmotion.right = false;
+        hero = new Hero();
+    }
+
 }
 
 //-----------------------------------------------

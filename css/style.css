@@ -108,16 +108,34 @@ html, body {
     height: 50px;
     width: 50px;
     position: absolute;
-    background-color: orange;
+    /*background-color: orange;*/
+/*    border: 1px solid black;*/
     padding: 0;
     margin: 0;
-    background-size: 100% 100%;
-    background-image: url(../assets/pigsheetcut.png);
-    animation: sprite 3s steps(6) infinite;
-
+    background-image: url(../assets/pigpig.png);
+    animation: pig .3s steps(6) infinite;
+/*    transform: scale(1.8, 1.8);
+*/
 }
 
-@keyframes sprite {
+@keyframes pig {
+ from { background-position: 0px; }
+ to { background-position: -300px; }
+}
+
+
+#doomfire {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    background: url(../assets/candel-fire/fire.png);
+    left: -99%;
+    bottom: 0%;
+    animation: fire 1s steps(3) infinite;
+}
+
+@keyframes fire {
  100% {
    background-position: -120px;
  }
@@ -130,14 +148,4 @@ html, body {
     width: 100%;
     z-index: -1;
     background: url(../assets/background.gif);
-}
-
-#doomfire {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 1;
-    background: url(../assets/candel-fire/fire.png);
-    left: -99%;
-    bottom: 0%;
 }

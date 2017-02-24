@@ -1,18 +1,18 @@
 var simpleLevelPlan = [
+	"          nnnnnnn           ",
+	"          xxxxxx          ! ",
+	"          xxxxx         nnn ",
+	"          xxxx              ",
+	"          xxx               ",
+	"                     nnn    ",
 	"                            ",
-	"                            ",
-	"                            ",
-	"                            ",
-	"          nnnnnn            ",
-	"                            ",
-	"                            ",
-	"  nnn           nnnnnn      ",
-	"    bb         bb !         ",
-	"     bb      nnnnnnn        ",
-	" nnnnnnn    xxxxxxxx     nn ",
-	" xxxxx     xxxxxxxx     xxx ",
-	" xxx                  xxxxx ",
-	"xxxx                 xxxxxx ",
+	"  nnn          nnnb         ",
+	"    bb        nxxxbb        ",
+	"    bbb      nxxxxnnn       ",
+	" nnnnnnnn   nxxxxxxxx   nnn ",
+	" xxxxxxxx   xxxxxxx     xxx ",
+	" xxx                   nxxx ",
+	"xxxx                   xxxx ",
 	"xxxxxxxxxxxxxxxxxxxxxxxxxxx "
 ];
 
@@ -42,7 +42,7 @@ var Level = function(plan){
 					mapObjects.push(c);
 				}else if ((simpleLevelPlan[i][j] == '!')){
 					var d = new Tile('bucket', [j]*TILE, [i]*TILE);
-					mapObjects.push(d);
+					winCondition.push(d);
 				}
 			}
 		}

@@ -72,7 +72,7 @@ var Hero = function(gravity){
     self.addGravity = function(movement){
         self.y += movement.gravity;
 
-        //console.log(self.y);
+        // console.log(self.y);
         var bottom = window.innerHeight;
 
         if(self.y > bottom){
@@ -95,26 +95,29 @@ var Hero = function(gravity){
         isJumping = true;
 
         if(currentJumpHeight < maxJumpHeight && isJumping && jumpingUp){
-
+            //start jump up
             currentJumpHeight += jumpSpeed;
             self.y -= jumpSpeed;
         }
 
         if(currentJumpHeight >= maxJumpHeight && isJumping){
             currentJumpHeight -= jumpSpeed;
+            //start fall
             self.y += jumpSpeed;
             jumpingUp = false;
+            movement.gravity = 10;
         }
 
         if(currentJumpHeight < maxJumpHeight && isJumping && !jumpingUp){
-
+            //falling
             if( currentJumpHeight <= speed){ // close to an object than the speed
                 currentJumpHeight = 0;
-               // this.y += currentJumpHeight;
+                this.y += currentJumpHeight;
             }else{
                 currentJumpHeight -= jumpSpeed;
-                this.y += jumpSpeed;
-              //  checkCollision();
+                // this.y += jumpSpeed;
+                
+
             }
 
         }
@@ -125,6 +128,7 @@ var Hero = function(gravity){
         }
 
         if(movement.jump && !isJumping){
+            movement.gravity = 0;
             self.y -= jumpSpeed;
             currentJumpHeight += jumpSpeed;
         }

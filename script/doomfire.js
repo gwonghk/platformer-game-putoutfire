@@ -5,7 +5,9 @@ var DoomFire = function(spawntime){
 	self.x = -window.innerWidth;
 	self.y = 0;
 	self.damage = 0;
-	var speed = 10;
+	self.height = window.innerHeight;
+	self.width = window.innerWidth;
+	var speed = 3;
 	var el = document.getElementById('doomfire');
 
 
@@ -17,7 +19,6 @@ var DoomFire = function(spawntime){
 		// body...
 		if(self.x >= window.innerWidth){
 			self.inmotion.right = false;
-			console.log('you died! =(!');
 		}
 	}
 
