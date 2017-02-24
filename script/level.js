@@ -3,17 +3,17 @@ var simpleLevelPlan = [
 	"                            ",
 	"                            ",
 	"                            ",
+	"          nnnnnn            ",
 	"                            ",
-	"            nnnn            ",
-	"     !                      ",
-	"     nnnn      nnnnnnn      ",
-	"             bbb            ",
-	"           bbb              ",
-	" nnnnnn  nnnnnnnnnnnnn  nn  ",
-	" xxxxx  xxxxxxxxxxxx   xxx  ",
-	" xxx   xxxxxxxxxxx   xxxxx  ",
-	"xxxx          x    xxxxxxx  ",
-	"xxxxxxxx         xxxxxxxxx  "
+	"                            ",
+	"  nnn           nnnnnn      ",
+	"    bb         bb !         ",
+	"     bb      nnnnnnn        ",
+	" nnnnnnn    xxxxxxxx     nn ",
+	" xxxxx     xxxxxxxx     xxx ",
+	" xxx                  xxxxx ",
+	"xxxx                 xxxxxx ",
+	"xxxxxxxxxxxxxxxxxxxxxxxxxxx "
 ];
 
 var Level = function(plan){

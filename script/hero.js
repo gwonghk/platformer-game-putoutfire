@@ -81,7 +81,7 @@ var Hero = function(gravity){
     }
 
     var jumpSpeed = 20;
-    var maxJumpHeight = 300;
+    var maxJumpHeight = 200;
     var currentJumpHeight = 0;
     var isJumping = false;
     var jumpingUp = true;

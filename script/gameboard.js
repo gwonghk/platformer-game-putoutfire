@@ -109,56 +109,71 @@ var GameBoard = function(){
             }
             var tileRect = tile.element.getClientRects()[0];
 
+            if (movement.gravity > 0) {
 
+                //btm chk
+                if(heroRect.bottom >= tileRect.top &&
+                   heroRect.left <= tileRect.left + tileRect.width &&
+                   heroRect.left + heroRect.width >= tileRect.left &&
+                   heroRect.top <= tileRect.bottom
+                )
+                {
+                    tile.element.style.background = "red";
+                    console.log("collision bottom");
+                    movement.gravity = 0;
+                }
+            }
+            if (movement.gravity < 0) {
+                //top chk
+                if(heroRect.top <= tileRect.bottom &&
+                    heroRect.left <= tileRect.left + tileRect.width &&
+                    heroRect.left + heroRect.width > tileRect.left &&
+                    heroRect.bottom > tileRect.top
+                )
+                {
+                    tile.element.style.background = "yellow";
+                    console.log("collision top");
+                    hero.y = tileRect.bottom
+                }
 
+            }
 
-            if(heroRect.bottom >= tileRect.top &&
-               heroRect.left <= tileRect.left + tileRect.width &&
-               heroRect.left + heroRect.width >= tileRect.left &&
-               heroRect.top <= tileRect.bottom
-            )
-            {
-                tile.element.style.background = "red";
-                console.log("collision bottom");
-                movement.gravity = 0;
+            if (movement.speedLeft > 0) {
+                // left check
+                if( heroRect.left <= tileRect.left + tileRect.width &&
+
+                    heroRect.left + heroRect.width > tileRect.left &&
+
+                    heroRect.bottom > tileRect.top &&
+
+                    heroRect.top <= tileRect.bottom
+                )
+                {
+                    tile.element.style.background = "blue";
+                    console.log("collision Left");
+                    movement.speedLeft = 0;
+                }
+            }
+
+            if (movement.speedRight > 0) {
+                // right check
+                if( heroRect.left + heroRect.width >= tileRect.left &&
+
+                    heroRect.left < tileRect.left + tileRect.width &&
+                    
+                    heroRect.bottom > tileRect.top &&
+
+                    heroRect.top <= tileRect.bottom
+                )
+                {
+                    tile.element.style.background = "purple";
+                    console.log("collision right");
+                    movement.speedRight = 0;
+                }
             }
 
 
-            if( heroRect.left <= tileRect.left + tileRect.width &&
-                heroRect.left + heroRect.width > tileRect.left &&
-                heroRect.bottom > tileRect.top &&
-                heroRect.top <= tileRect.bottom
-            )
-            {
-                tile.element.style.background = "blue";
-                console.log("collision Left");
-                movement.speedLeft = 0;
-            }
-
-
-            if( heroRect.left + heroRect.width > tileRect.left &&
-                heroRect.left < tileRect.left + tileRect.width &&
-                heroRect.bottom > tileRect.top &&
-                heroRect.top <= tileRect.bottom
-            )
-            {
-                tile.element.style.background = "purple";
-                console.log("collision right");
-                movement.speedRight = 0;
-            }
-
-
-            if(heroRect.top <= tileRect.bottom &&
-                heroRect.left < tileRect.left + tileRect.width &&
-                heroRect.left + heroRect.width > tileRect.left &&
-                heroRect.bottom > tileRect.top
-            )
-            {
-                debugger;
-                tile.element.style.background = "yellow";
-                console.log("collision top");
-                hero.y = tileRect.bottom
-            }
+            
 
 
             /*
@@ -204,7 +219,6 @@ var GameBoard = function(){
 
     function musicToggle() {
         // body...
-        doomfire.inmotion.right = true;
         var music = document.getElementById('bgm-bikerace');
         return music.paused ? music.play() : music.pause();
     }
