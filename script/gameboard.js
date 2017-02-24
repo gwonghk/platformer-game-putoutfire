@@ -132,9 +132,11 @@ var GameBoard = function(){
                     // tile.element.style.background = "red";
                     // console.log("collision bottom");
                     movement.gravity = 0;
+                    hero.element.top = tileRect.top + 50;
                 }
             }
             if (hero.isJumping = false) {
+/*            if (movement.gravity < 0) {
                 //top chk
                 if(heroRect.top <= tileRect.bottom &&
                     heroRect.left <= tileRect.left + tileRect.width &&
@@ -147,16 +149,13 @@ var GameBoard = function(){
                     hero.y = tileRect.bottom;
                 }
 
-            }
+            }*/
 
             if (movement.speedLeft > 0) {
                 // left check
                 if( heroRect.left <= tileRect.left + tileRect.width &&
-
                     heroRect.left + heroRect.width > tileRect.left &&
-
                     heroRect.bottom > tileRect.top &&
-
                     heroRect.top <= tileRect.bottom
                 )
                 {
@@ -169,16 +168,16 @@ var GameBoard = function(){
             if (movement.speedRight > 0) {
                 // right check
                 if( heroRect.left + heroRect.width >= tileRect.left &&
-
                     heroRect.left < tileRect.left + tileRect.width &&
-
                     heroRect.bottom > tileRect.top &&
-
                     heroRect.top <= tileRect.bottom
                 )
                 {
                     // tile.element.style.background = "purple";
                     // console.log("collision right");
+
+                    tile.element.style.background = "purple";
+                    console.log("collision right");
                     movement.speedRight = 0;
                 }
             }

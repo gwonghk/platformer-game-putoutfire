@@ -93,6 +93,7 @@ var Hero = function(gravity){
         }
 
         isJumping = true;
+        movement.gravity = 0;
 
         if(currentJumpHeight < maxJumpHeight && isJumping && jumpingUp){
             //start jump up
@@ -115,9 +116,15 @@ var Hero = function(gravity){
                 this.y += currentJumpHeight;
             }else{
                 currentJumpHeight -= jumpSpeed;
-                // this.y += jumpSpeed;
-                
 
+                self.y += jumpSpeed;
+
+
+                if( self.y > 660 ){
+                    //debugger;
+                }
+
+              //  checkCollision();
             }
 
         }
@@ -132,6 +139,9 @@ var Hero = function(gravity){
             self.y -= jumpSpeed;
             currentJumpHeight += jumpSpeed;
         }
+
+        console.log(self.y);
+
     }
 
 
