@@ -132,11 +132,9 @@ var GameBoard = function(){
                     // tile.element.style.background = "red";
                     // console.log("collision bottom");
                     movement.gravity = 0;
-                    hero.element.top = tileRect.top + 50;
                 }
             }
             if (hero.isJumping = false) {
-/*            if (movement.gravity < 0) {
                 //top chk
                 if(heroRect.top <= tileRect.bottom &&
                     heroRect.left <= tileRect.left + tileRect.width &&
@@ -149,13 +147,16 @@ var GameBoard = function(){
                     hero.y = tileRect.bottom;
                 }
 
-            }*/
+            }
 
             if (movement.speedLeft > 0) {
                 // left check
                 if( heroRect.left <= tileRect.left + tileRect.width &&
+
                     heroRect.left + heroRect.width > tileRect.left &&
+
                     heroRect.bottom > tileRect.top &&
+
                     heroRect.top <= tileRect.bottom
                 )
                 {
@@ -168,36 +169,32 @@ var GameBoard = function(){
             if (movement.speedRight > 0) {
                 // right check
                 if( heroRect.left + heroRect.width >= tileRect.left &&
+
                     heroRect.left < tileRect.left + tileRect.width &&
+
                     heroRect.bottom > tileRect.top &&
+
                     heroRect.top <= tileRect.bottom
                 )
                 {
                     // tile.element.style.background = "purple";
                     // console.log("collision right");
-
-                    tile.element.style.background = "purple";
-                    console.log("collision right");
                     movement.speedRight = 0;
                 }
             }
 
             /*
-
             if (heroRect.left <= tileRect.left + tileRect.width &&
                 heroRect.left + heroRect.width >= tileRect.left &&
                 heroRect.top <= tileRect.top + tileRect.height &&
                 heroRect.height + heroRect.top >= tileRect.top){
-
                 tile.element.style.background = "red";
-
                 // Bottom
                 if(heroRect.top+heroRect.height >= tileRect.top){
                     hero.y = tileRect.top - heroRect.height;
                     console.log("Bottom");
                     movement.gravity = 0;
                 }
-
                 // Left
                 //console.log("Left", heroRect.left, tileRect.left, tileRect.width)
                 if(heroRect.left < tileRect.left + tileRect.width){
@@ -209,7 +206,6 @@ var GameBoard = function(){
                     hero.x = tileRect.left - heroRect.width -1;
                     console.log("Right");
                 }
-
                 // Top
                 if(heroRect.top <= tileRect.top + tileRect.height){
                     hero.x = tileRect.top + tileRect.height + 1;
@@ -304,4 +300,3 @@ window.requestAnimFrame = (function(){
 
 
 var gameBoard = new GameBoard();
-
