@@ -160,7 +160,7 @@ var GameBoard = function(){
                 if( heroRect.left + heroRect.width >= tileRect.left &&
 
                     heroRect.left < tileRect.left + tileRect.width &&
-                    
+
                     heroRect.bottom > tileRect.top &&
 
                     heroRect.top <= tileRect.bottom
@@ -229,7 +229,7 @@ var GameBoard = function(){
         collisionDetection();
         hero.addGravity(movement);
         hero.render(movement);
-        //doomfire.render();
+        doomfire.render();
     }
 
 //-----------------------------------------------
@@ -245,8 +245,10 @@ var GameBoard = function(){
     function startGame(){
         //create level
         var simpleLevel = new Level(simpleLevelPlan);
-            hero = new Hero(movement.gravity);
-            //doomfire = new DoomFire();
+        hero = new Hero(movement.gravity);
+        doomfire = new DoomFire();
+        // window.setTimeout((doomfire.inmotion.right = true), 60000)
+
         //hide start screen
         document.getElementsByClassName('startscreen-container')[0].style.zIndex = -100;
         // run rendering

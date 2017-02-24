@@ -23,17 +23,10 @@ var DoomFire = function(spawntime){
 
 	function move() {
 
-		(self.inmotion.right) ? self.x += speed : self.x -= speed;
+		(self.inmotion.right) ? self.x += speed : self.x -= 0;
 		el.style.left = self.x + 'px';
 
 	}
-
-	window.setTimeout(spawn(), 1000)
-
-	function spawn(){
-		self.inmotion.right = true;
-	}
-
 
 	self.render = function() {
 		move();
